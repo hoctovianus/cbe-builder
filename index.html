@@ -368,7 +368,7 @@ function num(x){
   const n = parseFloat(String(x).replace(/[^0-9.\-]/g,''));
   return isFinite(n)?n:0;
 }
-function fmt(n){ return n.toLocaleString('en-US',{maximumFractionDigits:0}); }
+function fmt(n){ return n.toLocaleString('en-US',{minimumFractionDigits:2,maximumFractionDigits:2}); }
 function esc(s){ return String(s).replace(/[&<>"]/g,c=>(
   {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c])); }
 
@@ -839,7 +839,7 @@ function exportXlsx(){
     const setF=(key,f,t,val)=>{
       const addr=XLSX.utils.encode_cell({r:rowMap[key]-1,c:3+i});
       ws[addr]={t:t||'n',f:f}; if(val!==undefined) ws[addr].v=val;
-      if(t!=='s') ws[addr].z='#,##0';
+      if(t!=='s') ws[addr].z='#,##0.00';
     };
     const tq=PRICE_COMPS.map(k=>L+rowMap[k]).join('+')+'-'+L+rowMap.price_discount;
     setF('total_quoted',tq,'n',comp[i].total);
@@ -866,7 +866,7 @@ function exportXlsx(){
     // number format for currency & % data cells
     PRICE_COMPS.concat(['price_discount']).concat(COST_KEYS).forEach(k=>{
       const a=XLSX.utils.encode_cell({r:rowMap[k]-1,c:3+i});
-      if(ws[a]&&typeof ws[a].v==='number') ws[a].z='#,##0';
+      if(ws[a]&&typeof ws[a].v==='number') ws[a].z='#,##0.00';
     });
     LOAD_KEYS.concat(['credit_aftersales']).forEach(k=>{
       const a=XLSX.utils.encode_cell({r:rowMap[k]-1,c:3+i});
@@ -940,16 +940,16 @@ function exportXlsx(){
     for(let r=first;r<=last;r++){
       done.forEach((v,i)=>{
         const unitC=XLSX.utils.encode_col(4+i*2), totC=XLSX.utils.encode_col(5+i*2);
-        wsR[totC+r]={t:'n',f:'D'+r+'*'+unitC+r,z:'#,##0'};
+        wsR[totC+r]={t:'n',f:'D'+r+'*'+unitC+r,z:'#,##0.00'};
       });
     }
     done.forEach((v,i)=>{
       const totC=XLSX.utils.encode_col(5+i*2);
-      wsR[totC+sr]={t:'n',f:'SUM('+totC+first+':'+totC+last+')',z:'#,##0'};
+      wsR[totC+sr]={t:'n',f:'SUM('+totC+first+':'+totC+last+')',z:'#,##0.00'};
     });
   });
   wsR['!cols']=[{wch:5},{wch:34},{wch:10},{wch:7},
-    ...done.flatMap(()=>[{wch:16},{wch:16}])];
+    ...done.flatMap(()=>[{wch:18},{wch:18}])];
   wsR['!merges']=rhMerges;
 
   /* ---- Sheet Tinjauan Ekstraksi (keyakinan AI) ---- */
