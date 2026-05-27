@@ -1,12 +1,12 @@
 <meta charset="utf-8">
-<title>CBE Builder — Prototype v0.2</title>
+<title>CBE Builder — Prototype v1.0</title>
 <style>
   @import url('https://fonts.googleapis.com/css2?family=Archivo:wght@500;600;700;800;900&family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans:wght@400;500;600&display=swap');
   :root{
     --paper:#EDEAE3; --card:#FBFAF6; --ink:#16242E; --ink-soft:#56646C;
     --line:#CBC6B9; --line-soft:#E0DCD1; --accent:#BC4B1E; --accent-dk:#9A3C16;
-    --steel:#2E5266; --buyer:#E4ECEF; --buyer-bd:#9DB6C0;
-    --review:#F6E6BC; --review-bd:#D8B95E; --good:#2C6E49; --formula:#EBE8E0;
+    --steel:#2E5266; --buyer:#CEDEEA; --buyer-bd:#7FA0BC;
+    --review:#FBEFA8; --review-bd:#C9AC3A; --good:#2C6E49; --formula:#EBE8E0;
     --shadow:0 1px 0 rgba(22,36,46,.04), 0 8px 26px -16px rgba(22,36,46,.35);
   }
   *{box-sizing:border-box;}
@@ -111,22 +111,22 @@
   .sw.rev{background:var(--review); border-color:var(--review-bd);}
   .sw.buy{background:var(--buyer); border-color:var(--buyer-bd);}
   .sw.fx{background:var(--formula);}
-  .sw.ok{background:#E2F0E6; border-color:#9CC4A8;}
-  .sw.chk{background:#F8E2C6; border-color:#D8A85E;}
+  .sw.ok{background:#CDEBD6; border-color:#7FB894;}
+  .sw.chk{background:#F6C97D; border-color:#C9912F;}
   /* confidence indicators */
   td.cell{position:relative;}
   td.cell.vend input{padding-right:21px;}
-  td.cell.c-ok input{background:#E9F4EC;}
-  td.cell.c-check input{background:#F9E6CC;}
+  td.cell.c-ok input{background:#CDEBD6;}
+  td.cell.c-check input{background:#F6C97D;}
   td.cell.c-empty input{background:var(--review);}
-  td.cell.c-check input::placeholder,td.cell.c-empty input::placeholder{color:#9a7b38;}
+  td.cell.c-check input::placeholder,td.cell.c-empty input::placeholder{color:#7a6312;}
   .ci{position:absolute; top:50%; right:4px; transform:translateY(-50%);
     width:14px; height:14px; border-radius:50%; font-size:9px; font-weight:700;
     display:flex; align-items:center; justify-content:center; pointer-events:none;
     font-family:'IBM Plex Sans',sans-serif;}
   .ci-ok{background:var(--good); color:#fff;}
-  .ci-check{background:#C9852A; color:#fff;}
-  .ci-empty{background:#B59B4A; color:#fff;}
+  .ci-check{background:#C9701E; color:#fff;}
+  .ci-empty{background:#A98A12; color:#fff;}
   .thq{font-family:'IBM Plex Mono',monospace; font-size:9.5px; font-weight:500;
     color:#A9B4BA; margin-top:3px; line-height:1.3; text-transform:none;
     letter-spacing:0;}
@@ -188,162 +188,162 @@
   <div class="hd">
     <div>
       <h1>CBE <span>Builder</span></h1>
-      <p>Otomasi penyusunan Commercial Bid Evaluation untuk pengadaan EPC — output mengikuti persis template 9-bagian (A–I, 74 baris). Unggah quotation, AI mengisi fakta-vendor, Buyer melengkapi penilaian.</p>
+      <p>Automated Commercial Bid Evaluation for EPC procurement — output follows the 9-section template exactly (A–I, 74 rows). Upload quotations, AI fills vendor facts, the Buyer completes the judgement.</p>
     </div>
-    <div class="tag">v1.0 · EDISI DEPLOY (VERCEL)</div>
+    <div class="tag">v1.0 · DEPLOY EDITION (VERCEL)</div>
   </div>
 </header>
 
 <div class="wrap">
   <div class="banner">
-    <b>Pembagian peran:</b> AI mengekstrak fakta dari quotation; sel <b>biru</b> adalah penilaian Buyer (TBE, AVL/AML, HSE, loading) yang harus Anda isi sendiri.
-    <b>Indikator keyakinan:</b> tiap sel hasil AI ditandai <b>✓ hijau</b> bila AI membacanya jelas, <b>⚠ oranye</b> bila AI kurang yakin (mis. PDF hasil scan kurang jelas) dan perlu Anda periksa, atau <b>kuning</b> bila AI tidak menemukannya. Selalu verifikasi terhadap dokumen asli.
+    <b>Division of roles:</b> AI extracts facts from the quotation; <b>blue</b> cells are Buyer judgement (TBE, AVL/AML, HSE, loading) that you must fill in yourself.
+    <b>Confidence indicator:</b> each AI-filled cell is marked <b>✓ green</b> when AI read it clearly, <b>⚠ orange</b> when AI was unsure (e.g. an unclear scanned PDF) and you should check it, or <b>yellow</b> when AI could not find it. Always verify against the original document.
   </div>
 
   <div class="panel">
-    <div class="phead"><div class="step">1</div><h2>Informasi Proyek</h2>
+    <div class="phead"><div class="step">1</div><h2>Project Information</h2>
       <span class="sub">commercial bid evaluation</span></div>
     <div class="pbody">
       <div class="grid4">
-        <div class="field"><label>Nama Proyek</label><input id="p_name" placeholder="Nama proyek"></div>
-        <div class="field"><label>No. RFQ / MR</label><input id="p_rfq" placeholder="RFQ-XXXX"></div>
-        <div class="field"><label>Tanggal</label><input id="p_date" placeholder="dd-mm-yyyy"></div>
-        <div class="field"><label>Mata Uang Evaluasi</label><input id="p_curr" value="USD"></div>
+        <div class="field"><label>Project Name</label><input id="p_name" placeholder="Project name"></div>
+        <div class="field"><label>RFQ / MR No.</label><input id="p_rfq" placeholder="RFQ-XXXX"></div>
+        <div class="field"><label>Date</label><input id="p_date" placeholder="dd-mm-yyyy"></div>
+        <div class="field"><label>Evaluation Currency</label><input id="p_curr" value="USD"></div>
       </div>
     </div>
   </div>
 
   <div class="panel">
-    <div class="phead"><div class="step">2</div><h2>Quotation Vendor</h2>
-      <span class="sub">format PDF</span></div>
+    <div class="phead"><div class="step">2</div><h2>Vendor Quotations</h2>
+      <span class="sub">PDF format</span></div>
     <div class="pbody">
       <div class="slots" id="slots"></div>
-      <div class="btnrow"><button class="addv" id="addBtn">+ Tambah Penawar</button></div>
+      <div class="btnrow"><button class="addv" id="addBtn">+ Add Bidder</button></div>
       <div class="btnrow">
-        <button class="act b-primary" id="extractBtn" disabled>Ekstrak dengan AI</button>
-        <button class="act b-ghost" id="demoBtn">Coba dengan data contoh</button>
+        <button class="act b-primary" id="extractBtn" disabled>Extract with AI</button>
+        <button class="act b-ghost" id="demoBtn">Try with sample data</button>
         <button class="act b-ghost" id="resetBtn">Reset</button>
       </div>
       <div class="note">
-        AI membaca tiap PDF dalam 2 tahap dan mengisi seluruh fakta-vendor di Bagian A–F serta
-        sertifikasi &amp; pengecualian di Bagian G. Penilaian internal Buyer dibiarkan kosong untuk Anda lengkapi.
+        AI reads each PDF in 2 stages and fills all vendor facts in Sections A–F plus
+        certification &amp; exceptions in Section G. Internal Buyer judgement is left blank for you to complete.
       </div>
     </div>
   </div>
 
   <div class="panel">
-    <div class="phead"><div class="step">3</div><h2>Commercial Bid Evaluation — 9 Bagian (A–I)</h2>
-      <span class="sub" id="tblStatus">menunggu data</span></div>
+    <div class="phead"><div class="step">3</div><h2>Commercial Bid Evaluation — 9 Sections (A–I)</h2>
+      <span class="sub" id="tblStatus">awaiting data</span></div>
     <div class="pbody">
       <div class="legend">
-        <span><span class="sw ok"></span>Diisi AI — diyakini akurat</span>
-        <span><span class="sw chk"></span>Diisi AI — perlu diperiksa</span>
-        <span><span class="sw rev"></span>AI tak menemukan — isi manual</span>
-        <span><span class="sw buy"></span>Penilaian Buyer</span>
-        <span><span class="sw fx"></span>Formula otomatis</span>
+        <span><span class="sw ok"></span>AI-filled — accurate</span>
+        <span><span class="sw chk"></span>AI-filled — needs checking</span>
+        <span><span class="sw rev"></span>AI not found — fill manually</span>
+        <span><span class="sw buy"></span>Buyer judgement</span>
+        <span><span class="sw fx"></span>Auto formula</span>
       </div>
       <div id="tableArea">
-        <div class="empty-state">Belum ada data. Unggah quotation lalu klik <b>Ekstrak dengan AI</b>, atau muat <b>data contoh</b>.</div>
+        <div class="empty-state">No data yet. Upload quotations then click <b>Extract with AI</b>, or load the <b>sample data</b>.</div>
       </div>
       <div class="btnrow" id="exportRow" style="display:none">
-        <button class="act b-dark" id="exportBtn">Ekspor ke Excel (4 sheet, selaras template)</button>
+        <button class="act b-dark" id="exportBtn">Export to Excel (4 sheets, template-aligned)</button>
       </div>
     </div>
   </div>
 
-  <footer>CBE BUILDER PROTOTYPE v0.2 — STRUKTUR OUTPUT SELARAS TEMPLATE CBE EPC</footer>
+  <footer>CBE BUILDER PROTOTYPE v1.0 — OUTPUT STRUCTURE ALIGNED TO THE EPC CBE TEMPLATE</footer>
 </div>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
 <script>
-/* ============ STRUKTUR 9 BAGIAN (selaras template) ============ */
+/* ============ 9-SECTION STRUCTURE (template-aligned) ============ */
 const SECNAME = {
-  A:'A · INFORMASI PENAWAR / BIDDER INFORMATION',
-  B:'B · RINCIAN HARGA PENAWARAN / BID PRICE BREAKDOWN',
-  C:'C · TERM KOMERSIAL / COMMERCIAL TERMS',
-  D:'D · JAMINAN & BANK GUARANTEE / SECURITIES & BONDS',
-  E:'E · LIQUIDATED DAMAGES & GARANSI / LD & WARRANTY',
-  F:'F · SUKU CADANG & PURNA JUAL / SPARES & AFTER-SALES',
-  G:'G · KUALIFIKASI & KEPATUHAN / QUALIFICATION & COMPLIANCE',
-  H:'H · EVALUASI HARGA / PRICE EVALUATION (TOTAL EVALUATED COST)',
-  I:'I · HASIL EVALUASI & REKOMENDASI / RESULT & RECOMMENDATION',
+  A:'A · BIDDER INFORMATION',
+  B:'B · BID PRICE BREAKDOWN',
+  C:'C · COMMERCIAL TERMS',
+  D:'D · SECURITIES & BANK GUARANTEES',
+  E:'E · LIQUIDATED DAMAGES & WARRANTY',
+  F:'F · SPARES & AFTER-SALES',
+  G:'G · QUALIFICATION & COMPLIANCE',
+  H:'H · PRICE EVALUATION (TOTAL EVALUATED COST)',
+  I:'I · RESULT & RECOMMENDATION',
 };
-// type: vendor=AI ekstrak | buyer=penilaian Buyer | cost=biaya Buyer | loading=% Buyer | formula
+// type: vendor=AI extracts | buyer=Buyer judgement | cost=Buyer cost | loading=Buyer % | formula
 const P = [
- ['A','bidder_name','Nama Penawar / Bidder Name','','vendor'],
- ['A','status_penawar','Status Penawar','Pabrikan/Agen/Distributor','vendor'],
- ['A','manufacturer','Pabrikan / Manufacturer','','vendor'],
- ['A','country_origin','Negara Asal Barang / Country of Origin','','vendor'],
- ['A','bidder_location','Lokasi Penawar / Bidder Location','','vendor'],
- ['A','quotation_ref','No. Quotation / Quotation Ref.','','vendor'],
- ['A','quotation_date','Tanggal Quotation / Quotation Date','','vendor'],
- ['A','bid_validity','Masa Berlaku Penawaran / Bid Validity','hari','vendor','num'],
- ['A','avl_aml','Terdaftar di AVL/AML / Approved Vendor List','Ya/Tidak','buyer'],
- ['B','price_base','Harga Lingkup Dasar / Base Scope Price','','vendor','num'],
- ['B','price_comm_spares','Suku Cadang Commissioning / Commissioning Spares','','vendor','num'],
- ['B','price_2yr_spares','Suku Cadang 2 Tahun / 2-Year Operational Spares','','vendor','num'],
+ ['A','bidder_name','Bidder Name','','vendor'],
+ ['A','status_penawar','Bidder Status','Manufacturer/Agent/Distributor','vendor'],
+ ['A','manufacturer','Manufacturer','','vendor'],
+ ['A','country_origin','Country of Origin','','vendor'],
+ ['A','bidder_location','Bidder Location','','vendor'],
+ ['A','quotation_ref','Quotation Ref.','','vendor'],
+ ['A','quotation_date','Quotation Date','','vendor'],
+ ['A','bid_validity','Bid Validity','days','vendor','num'],
+ ['A','avl_aml','Registered in AVL/AML (Approved Vendor List)','Yes/No','buyer'],
+ ['B','price_base','Base Scope Price','','vendor','num'],
+ ['B','price_comm_spares','Commissioning Spares','','vendor','num'],
+ ['B','price_2yr_spares','2-Year Operational Spares','','vendor','num'],
  ['B','price_special_tools','Special Tools & Tackles','','vendor','num'],
- ['B','price_inspection','Inspeksi & Pengujian / Inspection & Testing','','vendor','num'],
- ['B','price_documentation','Dokumentasi / Documentation (MDR, dll)','','vendor','num'],
+ ['B','price_inspection','Inspection & Testing','','vendor','num'],
+ ['B','price_documentation','Documentation (MDR, etc.)','','vendor','num'],
  ['B','price_packing','Packing & Forwarding','','vendor','num'],
- ['B','price_supervision','Supervisi Erection & Commissioning','','vendor','num'],
- ['B','price_training','Training / Pelatihan Operator','','vendor','num'],
- ['B','price_discount','(-) Diskon / Discount','nilai (amount)','vendor','num'],
- ['B','total_quoted','(=) TOTAL HARGA PENAWARAN / TOTAL QUOTED PRICE','','formula','num'],
- ['C','incoterms','Incoterms / Dasar Harga (Incoterms 2020)','EXW/FOB/CIP/DDP','vendor'],
- ['C','delivery_time','Waktu Pengiriman / Delivery Time','minggu','vendor','num'],
- ['C','delivery_point','Titik Pengiriman / Delivery Point','','vendor'],
- ['C','payment_terms','Term Pembayaran / Payment Terms','','vendor'],
- ['C','advance_payment','Uang Muka / Advance Payment','% nilai kontrak','vendor'],
- ['C','retention','Retensi / Retention','% nilai kontrak','vendor'],
- ['C','firm_escalation','Harga Tetap / Firm atau Escalation','','vendor'],
- ['D','bid_bond','Bid Bond / Jaminan Penawaran','% & status','vendor'],
- ['D','bid_bond_validity','Masa Berlaku Bid Bond','','vendor'],
- ['D','performance_bond','Performance Bond / Jaminan Pelaksanaan','% & status','vendor'],
- ['D','performance_bond_validity','Masa Berlaku Performance Bond','','vendor'],
- ['D','advance_payment_bond','Advance Payment Bond / Jaminan Uang Muka','Setuju/Tidak','vendor'],
- ['D','warranty_retention_bond','Warranty / Retention Bond','Setuju/Tidak','vendor'],
- ['D','bg_format','Format Bank Guarantee Diterima','Ya/Bersyarat/Tidak','vendor'],
- ['E','ld_delay','LD Keterlambatan Diterima / LD for Delay','Ya/Tidak','vendor'],
- ['E','ld_rate','Tarif LD per Minggu / LD Rate per Week','% nilai kontrak','vendor'],
- ['E','ld_cap','Batas Maksimum LD / LD Cap','% nilai kontrak','vendor'],
- ['E','ld_performance','LD Kinerja / Performance LD Diterima','Ya/Tidak','vendor'],
- ['E','warranty_period','Masa Garansi / Warranty Period','bulan','vendor','num'],
+ ['B','price_supervision','Erection & Commissioning Supervision','','vendor','num'],
+ ['B','price_training','Training / Operator Training','','vendor','num'],
+ ['B','price_discount','(-) Discount','amount','vendor','num'],
+ ['B','total_quoted','(=) TOTAL QUOTED PRICE','','formula','num'],
+ ['C','incoterms','Incoterms / Price Basis (Incoterms 2020)','EXW/FOB/CIP/DDP','vendor'],
+ ['C','delivery_time','Delivery Time','weeks','vendor','num'],
+ ['C','delivery_point','Delivery Point','','vendor'],
+ ['C','payment_terms','Payment Terms','','vendor'],
+ ['C','advance_payment','Advance Payment','% of contract value','vendor'],
+ ['C','retention','Retention','% of contract value','vendor'],
+ ['C','firm_escalation','Firm Price or Escalation','','vendor'],
+ ['D','bid_bond','Bid Bond','% & status','vendor'],
+ ['D','bid_bond_validity','Bid Bond Validity','','vendor'],
+ ['D','performance_bond','Performance Bond','% & status','vendor'],
+ ['D','performance_bond_validity','Performance Bond Validity','','vendor'],
+ ['D','advance_payment_bond','Advance Payment Bond','Agreed/Not','vendor'],
+ ['D','warranty_retention_bond','Warranty / Retention Bond','Agreed/Not','vendor'],
+ ['D','bg_format','Bank Guarantee Format Accepted','Yes/Conditional/No','vendor'],
+ ['E','ld_delay','LD for Delay Accepted','Yes/No','vendor'],
+ ['E','ld_rate','LD Rate per Week','% of contract value','vendor'],
+ ['E','ld_cap','LD Maximum Cap','% of contract value','vendor'],
+ ['E','ld_performance','Performance LD Accepted','Yes/No','vendor'],
+ ['E','warranty_period','Warranty Period','months','vendor','num'],
  ['E','defect_liability','Defect Liability Period','','vendor'],
- ['E','performance_guarantee','Performance Guarantee Ditawarkan','Ya/Bersyarat/Tidak','vendor'],
- ['F','spare_parts_list','Daftar Suku Cadang Diserahkan / Spare Parts List','Ya/Sebagian/Tidak','vendor'],
- ['F','spare_price_validity','Masa Berlaku Harga Suku Cadang','','vendor'],
- ['F','spare_availability','Jaminan Ketersediaan Suku Cadang','tahun','vendor'],
- ['F','after_sales','Layanan Purna Jual / After-Sales Support','','vendor'],
- ['F','service_center','Lokasi Service Center','','vendor'],
- ['F','service_response','Waktu Respon Layanan / Service Response','','vendor'],
- ['F','supervision_erection','Supervisi Erection & Commissioning','Termasuk/Terpisah','vendor'],
- ['F','mdr','Manufacturer Data Report / Dokumentasi','','vendor'],
- ['G','tbe_status','Status Evaluasi Teknis (dari TBE)','Lulus/Gugur/Bersyarat','buyer'],
- ['G','qaqc_cert','Sertifikasi QA/QC','ISO/API dll','vendor'],
- ['G','hse_record','Rekam Jejak HSE / HSE Record','Baik/Cukup/Kurang','buyer'],
- ['G','track_record','Pengalaman Proyek Sejenis / Track Record','','buyer'],
- ['G','rfq_compliance','Patuh thd Term Komersial RFQ / Compliance','Ya/Sebagian/Tidak','buyer'],
- ['G','commercial_deviations','Jumlah Deviasi Komersial / Commercial Deviations','jumlah','buyer','num'],
- ['G','technical_deviations','Jumlah Deviasi Teknis / Technical Deviations','ref. TBE','buyer','num'],
- ['G','exceptions','Pengecualian & Kualifikasi / Exceptions','ringkas','vendor'],
- ['H','total_quoted_mirror','Total Harga Penawaran / Total Quoted Price','dari Bagian B','formula','num'],
- ['H','freight','(+) Freight ke Titik Pengiriman','','cost','num'],
- ['H','insurance','(+) Asuransi / Insurance','','cost','num'],
- ['H','import_duty','(+) Bea Masuk & Pajak Impor (bila Excl.)','','cost','num'],
- ['H','vat','(+) PPN / VAT (bila diperhitungkan)','','cost','num'],
- ['H','other_charges','(+) Biaya Lain / Other Charges','','cost','num'],
+ ['E','performance_guarantee','Performance Guarantee Offered','Yes/Conditional/No','vendor'],
+ ['F','spare_parts_list','Spare Parts List Provided','Yes/Partial/No','vendor'],
+ ['F','spare_price_validity','Spare Parts Price Validity','','vendor'],
+ ['F','spare_availability','Spare Parts Availability Guarantee','years','vendor'],
+ ['F','after_sales','After-Sales Support','','vendor'],
+ ['F','service_center','Service Center Location','','vendor'],
+ ['F','service_response','Service Response Time','','vendor'],
+ ['F','supervision_erection','Erection & Commissioning Supervision','Included/Separate','vendor'],
+ ['F','mdr','Manufacturer Data Report / Documentation','','vendor'],
+ ['G','tbe_status','Technical Evaluation Status (from TBE)','Pass/Fail/Conditional','buyer'],
+ ['G','qaqc_cert','QA/QC Certification','ISO/API etc.','vendor'],
+ ['G','hse_record','HSE Record','Good/Fair/Poor','buyer'],
+ ['G','track_record','Similar Project Experience / Track Record','','buyer'],
+ ['G','rfq_compliance','Compliance with RFQ Commercial Terms','Yes/Partial/No','buyer'],
+ ['G','commercial_deviations','Number of Commercial Deviations','count','buyer','num'],
+ ['G','technical_deviations','Number of Technical Deviations','ref. TBE','buyer','num'],
+ ['G','exceptions','Exceptions & Qualifications','brief','vendor'],
+ ['H','total_quoted_mirror','Total Quoted Price','from Section B','formula','num'],
+ ['H','freight','(+) Freight to Delivery Point','','cost','num'],
+ ['H','insurance','(+) Insurance','','cost','num'],
+ ['H','import_duty','(+) Import Duty & Taxes (if Excl.)','','cost','num'],
+ ['H','vat','(+) VAT (if applicable)','','cost','num'],
+ ['H','other_charges','(+) Other Charges','','cost','num'],
  ['H','landed_cost','(=) Total Landed Cost','','formula','num'],
- ['H','load_payment','Loading: Term Pembayaran Kurang Baik','% beban','loading'],
- ['H','load_delivery','Loading: Waktu Pengiriman Lebih Lama','% beban','loading'],
- ['H','load_bond','Loading: Bid / Performance Bond Lemah','% beban','loading'],
- ['H','load_deviation','Loading: Deviasi Komersial','% beban','loading'],
- ['H','credit_aftersales','(-) Kredit: Purna Jual & Suku Cadang Lebih Baik','% kredit','loading'],
+ ['H','load_payment','Loading: Unfavourable Payment Terms','% load','loading'],
+ ['H','load_delivery','Loading: Longer Delivery Time','% load','loading'],
+ ['H','load_bond','Loading: Weak Bid / Performance Bond','% load','loading'],
+ ['H','load_deviation','Loading: Commercial Deviations','% load','loading'],
+ ['H','credit_aftersales','(-) Credit: Better After-Sales & Spares','% credit','loading'],
  ['H','total_evaluated','(=) TOTAL EVALUATED PRICE','','formula','num'],
- ['I','ranking_price','Harga untuk Ranking (hanya yang Lulus TBE)','','formula','num'],
- ['I','ranking','Peringkat / Ranking (1 = terbaik)','','formula'],
- ['I','diff_lowest','Selisih thd Penawaran Terendah (yang Lulus)','','formula'],
- ['I','recommendation','REKOMENDASI / RECOMMENDATION','','formula'],
+ ['I','ranking_price','Price for Ranking (TBE-Pass bidders only)','','formula','num'],
+ ['I','ranking','Ranking (1 = best)','','formula'],
+ ['I','diff_lowest','Difference vs Lowest Bid (TBE-Pass)','','formula'],
+ ['I','recommendation','RECOMMENDATION','','formula'],
 ].map(a=>({s:a[0],k:a[1],label:a[2],note:a[3],type:a[4],num:a[5]==='num'}));
 
 const PRICE_COMPS = ['price_base','price_comm_spares','price_2yr_spares','price_special_tools',
@@ -378,16 +378,16 @@ function renderSlots(){
   state.vendors.forEach((v,i)=>{
     const div=document.createElement('div');
     div.className='slot '+(v.status==='empty'?'':v.status);
-    const st={empty:'Kosong',ready:'Siap',extracting:'Memproses',done:'Terbaca',error:'Gagal'}[v.status];
+    const st={empty:'Empty',ready:'Ready',extracting:'Processing',done:'Read',error:'Failed'}[v.status];
     div.innerHTML=`
-      <div class="vno">PENAWAR ${i+1}</div>
-      <div class="fname ${v.fileName?'':'empty'}">${v.fileName?esc(v.fileName):'Belum ada file'}</div>
+      <div class="vno">BIDDER ${i+1}</div>
+      <div class="fname ${v.fileName?'':'empty'}">${v.fileName?esc(v.fileName):'No file yet'}</div>
       <span class="badge b-${v.status}">${v.status==='extracting'?'<span class="spin"></span>':''}${st}</span>
       ${v.errorMsg?`<div class="errmsg">${esc(v.errorMsg)}</div>`:''}
       <div class="slot-actions">
-        <label class="filebtn">${v.fileName?'Ganti PDF':'Pilih PDF'}
+        <label class="filebtn">${v.fileName?'Replace PDF':'Choose PDF'}
           <input type="file" accept=".pdf,application/pdf" style="display:none" data-vid="${v.id}"></label>
-        ${state.vendors.length>1?`<button class="rm" data-rm="${v.id}" title="Hapus">&times;</button>`:''}
+        ${state.vendors.length>1?`<button class="rm" data-rm="${v.id}" title="Remove">&times;</button>`:''}
       </div>`;
     div.addEventListener('dragover',e=>{e.preventDefault();div.classList.add('drag');});
     div.addEventListener('dragleave',()=>div.classList.remove('drag'));
@@ -410,23 +410,23 @@ function renderSlots(){
 }
 function loadFile(v,file){
   if(file.type!=='application/pdf'&&!file.name.toLowerCase().endsWith('.pdf')){
-    v.status='error'; v.errorMsg='File harus PDF.'; renderSlots(); return;
+    v.status='error'; v.errorMsg='File must be a PDF.'; renderSlots(); return;
   }
   const r=new FileReader();
   r.onload=()=>{v.fileData=String(r.result).split(',')[1]; v.fileName=file.name;
     v.status='ready';
     v.errorMsg=(file.size>3*1024*1024)
-      ? 'Perhatian: file >3MB — ekstraksi mungkin gagal. Unggah hanya bagian komersial quotation.'
+      ? 'Note: file >3MB — extraction may fail. Upload only the commercial part of the quotation.'
       : '';
     renderSlots(); updateExtractBtn();};
-  r.onerror=()=>{v.status='error'; v.errorMsg='Gagal membaca file.'; renderSlots();};
+  r.onerror=()=>{v.status='error'; v.errorMsg='Failed to read file.'; renderSlots();};
   r.readAsDataURL(file);
 }
 function updateExtractBtn(){
   $('extractBtn').disabled=!state.vendors.some(v=>v.fileData&&v.status!=='done');
 }
 
-/* ============ EKSTRAKSI AI (2 tahap) ============ */
+/* ============ AI EXTRACTION (2 stages) ============ */
 const CONF_RULES =
 `Each PDF page is provided to you as an image — read it visually and carefully.
 Return ONLY a valid JSON object — no markdown fences, no commentary — with EXACTLY these four top-level keys:
@@ -468,21 +468,21 @@ async function callExtract(fileData, prompt){
       body:JSON.stringify({pdfData:fileData, prompt:prompt})
     });
   }catch(e){
-    throw new Error('Tidak dapat menghubungi backend. Pastikan aplikasi dibuka dari alamat Vercel (bukan file lokal).');
+    throw new Error('Cannot reach the backend. Make sure the app is opened from the Vercel URL (not a local file).');
   }
   let data;
   try{ data=await res.json(); }
-  catch(e){ throw new Error('Respons backend tidak terbaca (kode '+res.status+').'); }
+  catch(e){ throw new Error('Backend response unreadable (code '+res.status+').'); }
   if(!res.ok){
-    throw new Error((data&&data.error)?data.error:('Backend menolak permintaan (kode '+res.status+').'));
+    throw new Error((data&&data.error)?data.error:('Backend rejected the request (code '+res.status+').'));
   }
   const text=data.text||'';
   let js=text.replace(/```json/gi,'').replace(/```/g,'').trim();
   const m=js.match(/\{[\s\S]*\}/);
   if(m) js=m[0];
   const parsed=JSON.parse(js);
-  // Bila AI mengembalikan struktur baru {values,confidence,...}; bila format
-  // lama (objek datar), perlakukan seluruh objek sebagai values.
+  // If AI returns the new {values,confidence,...} structure; if the old
+  // flat-object format, treat the whole object as values.
   if(parsed && typeof parsed==='object' && parsed.values){
     return {
       values: parsed.values||{},
@@ -510,19 +510,19 @@ async function extractAll(){
       v.status='done';
     }catch(err){
       v.status='error';
-      v.errorMsg=(err&&err.message)?err.message:'Ekstraksi gagal.';
+      v.errorMsg=(err&&err.message)?err.message:'Extraction failed.';
     }
     renderSlots();
   }
   $('demoBtn').disabled=false; updateExtractBtn(); renderTable();
 }
 
-/* ============ KEYAKINAN EKSTRAKSI ============ */
-// confState: status keyakinan satu parameter untuk satu vendor.
-//  'ok'    = AI mengisi & yakin (hijau)
-//  'check' = AI mengisi tapi kurang yakin — perlu diperiksa (oranye)
-//  'empty' = AI tidak menemukan — isi manual (kuning)
-//  'na'    = bukan sel AI (penilaian Buyer / formula)
+/* ============ EXTRACTION CONFIDENCE ============ */
+// confState: confidence status of one parameter for one vendor.
+//  'ok'    = AI filled it & is confident (green)
+//  'check' = AI filled it but is unsure — needs checking (orange)
+//  'empty' = AI did not find it — fill manually (yellow)
+//  'na'    = not an AI cell (Buyer judgement / formula)
 function confState(v,p){
   if(p.type!=='vendor') return 'na';
   const val=v.data[p.k];
@@ -538,39 +538,39 @@ function vendorConfSummary(v){
   return {ok:ok,chk:chk,emp:emp};
 }
 function docTypeLabel(v){
-  return {native:'PDF native',scanned:'PDF hasil scan',mixed:'PDF campuran'}[v.docType]||'';
+  return {native:'native PDF',scanned:'scanned PDF',mixed:'mixed PDF'}[v.docType]||'';
 }
 function docQualityLabel(v){
-  return {good:'kualitas baca: baik',fair:'kualitas baca: sedang',
-          poor:'kualitas baca: rendah'}[v.docQuality]||'';
+  return {good:'read quality: good',fair:'read quality: fair',
+          poor:'read quality: poor'}[v.docQuality]||'';
 }
 const CI_SYM={ok:'\u2713',check:'!',empty:'?'};
 const CI_TTL={
-  ok:'AI membaca dengan jelas \u2014 diyakini akurat',
-  check:'AI kurang yakin saat membaca \u2014 periksa terhadap dokumen asli',
-  empty:'AI tidak menemukan data ini \u2014 isi manual'
+  ok:'AI read this clearly \u2014 believed accurate',
+  check:'AI was unsure while reading \u2014 check against the original document',
+  empty:'AI did not find this data \u2014 fill manually'
 };
 
-/* ============ TABEL CBE ============ */
+/* ============ CBE TABLE ============ */
 function renderTable(){
   const area=$('tableArea');
   const done=state.vendors.filter(v=>v.status==='done');
   if(!done.length){
-    area.innerHTML='<div class="empty-state">Belum ada data. Unggah quotation lalu klik <b>Ekstrak dengan AI</b>, atau muat <b>data contoh</b>.</div>';
-    $('exportRow').style.display='none'; $('tblStatus').textContent='menunggu data'; return;
+    area.innerHTML='<div class="empty-state">No data yet. Upload quotations then click <b>Extract with AI</b>, or load the <b>sample data</b>.</div>';
+    $('exportRow').style.display='none'; $('tblStatus').textContent='awaiting data'; return;
   }
-  $('tblStatus').textContent=done.length+' penawar · 9 bagian · 74 baris';
+  $('tblStatus').textContent=done.length+' bidders · 9 sections · 74 rows';
   $('exportRow').style.display='flex';
 
   let h='<div class="tablewrap"><table><thead><tr>';
-  h+='<th class="pcol">Parameter Komersial / Commercial Parameter</th>';
+  h+='<th class="pcol">Commercial Parameter</th>';
   done.forEach((v,i)=>{
     const dt=docTypeLabel(v), dq=docQualityLabel(v);
     const isScan=(v.docType==='scanned'||v.docType==='mixed');
     const sub=(dt||dq)
       ? `<div class="thq${isScan?' scan':''}">${esc([dt,dq].filter(Boolean).join(' · '))}</div>`
       : '';
-    h+=`<th>${esc(v.data.bidder_name||('Penawar '+(i+1)))}${sub}</th>`;
+    h+=`<th>${esc(v.data.bidder_name||('Bidder '+(i+1)))}${sub}</th>`;
   });
   h+='</tr></thead><tbody>';
 
@@ -588,8 +588,8 @@ function renderTable(){
       } else if(p.k==='tbe_status'){
         const val=v.data[p.k]||'';
         h+=`<td class="cell t-buyer"><select data-vid="${v.id}" data-key="${p.k}">`+
-           ['','Lulus','Gugur','Bersyarat'].map(o=>
-             `<option value="${o}" ${o===val?'selected':''}>${o||'— pilih —'}</option>`).join('')+
+           ['','Pass','Fail','Conditional'].map(o=>
+             `<option value="${o}" ${o===val?'selected':''}>${o||'— select —'}</option>`).join('')+
            `</select></td>`;
       } else {
         let val=v.data[p.k]; if(val==null) val='';
@@ -601,7 +601,7 @@ function renderTable(){
         if(isBuyer) tdCls+=' t-buyer';
         if(isVend)  tdCls+=' vend c-'+cs;
         const ph=p.type==='loading'?'0'
-                 :(cs==='empty'?'tidak ditemukan':(isBuyer?'isi Buyer':''));
+                 :(cs==='empty'?'not found':(isBuyer?'Buyer input':''));
         const ci=isVend
           ? `<span class="ci ci-${cs}" title="${CI_TTL[cs]}">${CI_SYM[cs]}</span>`
           : '';
@@ -613,10 +613,10 @@ function renderTable(){
     h+='</tr>';
   });
   h+='</tbody></table></div>';
-  const sum='<div class="confsum"><b>Keyakinan ekstraksi AI</b> &mdash; '+
+  const sum='<div class="confsum"><b>AI extraction confidence</b> &mdash; '+
     done.map(v=>{const s=vendorConfSummary(v);
-      return esc(v.data.bidder_name||'Penawar')+
-        ': \u2713 '+s.ok+' akurat · ! '+s.chk+' periksa · ? '+s.emp+' isi manual';
+      return esc(v.data.bidder_name||'Bidder')+
+        ': \u2713 '+s.ok+' accurate · ! '+s.chk+' check · ? '+s.emp+' fill manually';
     }).join('&nbsp;&nbsp;|&nbsp;&nbsp;')+'</div>';
   area.innerHTML=sum+h;
 
@@ -629,7 +629,7 @@ function renderTable(){
       v.data[key]=el.value;
       const p=P.find(x=>x.k===key);
       if(p&&p.type==='vendor'){
-        // Buyer mengisi/mengoreksi sel AI -> tandai sudah diverifikasi (akurat).
+        // Buyer fills/corrects an AI cell -> mark as verified (accurate).
         if(!v.confidence) v.confidence={};
         if(el.value.trim()!=='') v.confidence[key]='high';
         const td=el.closest('td');
@@ -641,7 +641,7 @@ function renderTable(){
           if(ci){
             ci.className='ci ci-'+cs;
             ci.textContent=CI_SYM[cs];
-            ci.title=(cs==='ok')?'Sudah diisi / diverifikasi Buyer':CI_TTL[cs];
+            ci.title=(cs==='ok')?'Filled / verified by Buyer':CI_TTL[cs];
           }
         }
       }
@@ -663,7 +663,7 @@ function recompute(){
   const done=state.vendors.filter(v=>v.status==='done');
   const rows=done.map(v=>{
     const c=computeVendor(v);
-    const lulus=(v.data.tbe_status==='Lulus');
+    const lulus=(v.data.tbe_status==='Pass');
     return {v,...c,lulus,rankPrice:lulus?c.evaluated:BIG};
   });
   const valid=rows.filter(r=>r.lulus&&r.evaluated>0);
@@ -679,91 +679,91 @@ function recompute(){
     set('landed_cost', r.landed>0?fmt(r.landed):'—');
     set('total_evaluated', r.evaluated>0?fmt(r.evaluated):'—',
         (r.rank===1?'big lowest':'big'));
-    set('ranking_price', (r.lulus&&r.evaluated>0)?fmt(r.evaluated):'(gugur TBE)');
+    set('ranking_price', (r.lulus&&r.evaluated>0)?fmt(r.evaluated):'(TBE fail)');
     set('ranking', r.rank?('#'+r.rank):(r.lulus?'—':'—'));
     if(r.lulus&&minEv>0&&r.evaluated>0){
       const d=((r.evaluated-minEv)/minEv*100);
       set('diff_lowest', d===0?'0.0%':('+'+d.toFixed(1)+'%'));
     } else set('diff_lowest','—');
     if(!r.lulus&&v_has_tbe(r.v))
-      set('recommendation','GUGUR · TIDAK LULUS TBE','reco out');
+      set('recommendation','DISQUALIFIED · TBE NOT PASSED','reco out');
     else if(r.rank===1)
-      set('recommendation','✓ DIREKOMENDASIKAN','reco win');
+      set('recommendation','✓ RECOMMENDED','reco win');
     else if(r.rank)
-      set('recommendation','Peringkat ke-'+r.rank,'reco');
+      set('recommendation','Rank no. '+r.rank,'reco');
     else set('recommendation','—','reco');
   });
 }
 function v_has_tbe(v){ return (v.data.tbe_status||'')!==''; }
 
-/* ============ DATA CONTOH (identik template) ============ */
+/* ============ SAMPLE DATA (matches template) ============ */
 function loadDemo(){
   const D=[
-   {bidder_name:'Vendor A',status_penawar:'Pabrikan',manufacturer:'PumpCo GmbH',
-    country_origin:'Jerman',bidder_location:'Singapura',quotation_ref:'QT-A-2026',
-    quotation_date:'05-05-2026',bid_validity:90,avl_aml:'Ya',
+   {bidder_name:'Vendor A',status_penawar:'Manufacturer',manufacturer:'PumpCo GmbH',
+    country_origin:'Germany',bidder_location:'Singapore',quotation_ref:'QT-A-2026',
+    quotation_date:'05-05-2026',bid_validity:90,avl_aml:'Yes',
     price_base:110000,price_comm_spares:10000,price_2yr_spares:10000,price_special_tools:5000,
     price_inspection:4000,price_documentation:2000,price_packing:3000,price_supervision:6000,
     price_training:3000,price_discount:5000,
     incoterms:'CIP Jobsite',delivery_time:16,delivery_point:'Jobsite',payment_terms:'10/80/10',
     advance_payment:'10%',retention:'10%',firm_escalation:'Firm',
-    bid_bond:'2% - Diterima',bid_bond_validity:'120 hari',performance_bond:'10% - Setuju',
-    performance_bond_validity:'s/d akhir garansi',advance_payment_bond:'Setuju',
-    warranty_retention_bond:'Setuju',bg_format:'Ya',
-    ld_delay:'Ya',ld_rate:'0.5%',ld_cap:'5%',ld_performance:'Ya',warranty_period:18,
-    defect_liability:'12 bln pasca-comm.',performance_guarantee:'Ya',
-    spare_parts_list:'Ya',spare_price_validity:'12 bulan',spare_availability:'15 tahun',
-    after_sales:'Agen lokal + kontrak',service_center:'Jakarta',service_response:'48 jam',
-    supervision_erection:'Termasuk',mdr:'Lengkap',
-    tbe_status:'Lulus',qaqc_cert:'ISO 9001, API 610',hse_record:'Baik',track_record:'Banyak',
-    rfq_compliance:'Ya',commercial_deviations:0,technical_deviations:0,exceptions:'Tidak ada',
+    bid_bond:'2% - Accepted',bid_bond_validity:'120 days',performance_bond:'10% - Agreed',
+    performance_bond_validity:'until end of warranty',advance_payment_bond:'Agreed',
+    warranty_retention_bond:'Agreed',bg_format:'Yes',
+    ld_delay:'Yes',ld_rate:'0.5%',ld_cap:'5%',ld_performance:'Yes',warranty_period:18,
+    defect_liability:'12 mo. post-commissioning',performance_guarantee:'Yes',
+    spare_parts_list:'Yes',spare_price_validity:'12 months',spare_availability:'15 years',
+    after_sales:'Local agent + contract',service_center:'Jakarta',service_response:'48 hours',
+    supervision_erection:'Included',mdr:'Complete',
+    tbe_status:'Pass',qaqc_cert:'ISO 9001, API 610',hse_record:'Good',track_record:'Extensive',
+    rfq_compliance:'Yes',commercial_deviations:0,technical_deviations:0,exceptions:'None',
     freight:5000,insurance:800,import_duty:0,vat:0,other_charges:0,
     load_payment:0,load_delivery:0,load_bond:0,load_deviation:0,credit_aftersales:0},
-   {bidder_name:'Vendor B',status_penawar:'Agen Resmi',manufacturer:'FlowTech Inc',
-    country_origin:'Tiongkok',bidder_location:'Indonesia',quotation_ref:'QT-B-2026',
-    quotation_date:'07-05-2026',bid_validity:60,avl_aml:'Ya',
+   {bidder_name:'Vendor B',status_penawar:'Authorised Agent',manufacturer:'FlowTech Inc',
+    country_origin:'China',bidder_location:'Indonesia',quotation_ref:'QT-B-2026',
+    quotation_date:'07-05-2026',bid_validity:60,avl_aml:'Yes',
     price_base:96000,price_comm_spares:9000,price_2yr_spares:8000,price_special_tools:4000,
     price_inspection:3000,price_documentation:1500,price_packing:2500,price_supervision:8000,
     price_training:2000,price_discount:0,
-    incoterms:'FOB',delivery_time:12,delivery_point:'Pelabuhan Muat',payment_terms:'30/70',
+    incoterms:'FOB',delivery_time:12,delivery_point:'Port of Loading',payment_terms:'30/70',
     advance_payment:'30%',retention:'0%',firm_escalation:'Firm',
-    bid_bond:'Tidak diserahkan',bid_bond_validity:'-',performance_bond:'5% - Keberatan',
-    performance_bond_validity:'12 bulan',advance_payment_bond:'Setuju',
-    warranty_retention_bond:'Tidak ditawarkan',bg_format:'Bersyarat',
-    ld_delay:'Ya',ld_rate:'0.5%',ld_cap:'5%',ld_performance:'Tidak',warranty_period:12,
-    defect_liability:'12 bln pasca-kirim',performance_guarantee:'Bersyarat',
-    spare_parts_list:'Sebagian',spare_price_validity:'6 bulan',spare_availability:'10 tahun',
-    after_sales:'Hanya pabrikan (LN)',service_center:'Luar negeri',service_response:'1-2 minggu',
-    supervision_erection:'Berbayar terpisah',mdr:'Standar',
-    tbe_status:'Gugur',qaqc_cert:'ISO 9001',hse_record:'Cukup',track_record:'Terbatas',
-    rfq_compliance:'Sebagian',commercial_deviations:4,technical_deviations:6,
-    exceptions:'Term bayar & bond',
+    bid_bond:'Not submitted',bid_bond_validity:'-',performance_bond:'5% - Objected',
+    performance_bond_validity:'12 months',advance_payment_bond:'Agreed',
+    warranty_retention_bond:'Not offered',bg_format:'Conditional',
+    ld_delay:'Yes',ld_rate:'0.5%',ld_cap:'5%',ld_performance:'No',warranty_period:12,
+    defect_liability:'12 mo. post-delivery',performance_guarantee:'Conditional',
+    spare_parts_list:'Partial',spare_price_validity:'6 months',spare_availability:'10 years',
+    after_sales:'Manufacturer only (overseas)',service_center:'Overseas',service_response:'1-2 weeks',
+    supervision_erection:'Chargeable separately',mdr:'Standard',
+    tbe_status:'Fail',qaqc_cert:'ISO 9001',hse_record:'Fair',track_record:'Limited',
+    rfq_compliance:'Partial',commercial_deviations:4,technical_deviations:6,
+    exceptions:'Payment terms & bond',
     freight:8000,insurance:1000,import_duty:0,vat:0,other_charges:0,
     load_payment:1.5,load_delivery:2.0,load_bond:1.0,load_deviation:0.5,credit_aftersales:0},
-   {bidder_name:'Vendor C',status_penawar:'Pabrikan',manufacturer:'HydroMfg Srl',
-    country_origin:'Italia',bidder_location:'Indonesia',quotation_ref:'QT-C-2026',
-    quotation_date:'06-05-2026',bid_validity:90,avl_aml:'Ya',
+   {bidder_name:'Vendor C',status_penawar:'Manufacturer',manufacturer:'HydroMfg Srl',
+    country_origin:'Italy',bidder_location:'Indonesia',quotation_ref:'QT-C-2026',
+    quotation_date:'06-05-2026',bid_validity:90,avl_aml:'Yes',
     price_base:106000,price_comm_spares:10000,price_2yr_spares:10000,price_special_tools:4500,
     price_inspection:3500,price_documentation:2000,price_packing:3000,price_supervision:5000,
     price_training:3000,price_discount:4000,
     incoterms:'DDP Jobsite',delivery_time:18,delivery_point:'Jobsite',payment_terms:'10/90',
     advance_payment:'10%',retention:'10%',firm_escalation:'Firm',
-    bid_bond:'2% - Diterima',bid_bond_validity:'120 hari',performance_bond:'10% - Setuju',
-    performance_bond_validity:'s/d akhir garansi',advance_payment_bond:'Setuju',
-    warranty_retention_bond:'Setuju',bg_format:'Ya',
-    ld_delay:'Ya',ld_rate:'1%',ld_cap:'10%',ld_performance:'Ya',warranty_period:24,
-    defect_liability:'18 bln pasca-comm.',performance_guarantee:'Ya',
-    spare_parts_list:'Ya',spare_price_validity:'24 bulan',spare_availability:'20 tahun',
-    after_sales:'Agen lokal + kontrak',service_center:'Surabaya',service_response:'24 jam',
-    supervision_erection:'Termasuk',mdr:'Lengkap',
-    tbe_status:'Lulus',qaqc_cert:'ISO 9001, API 610',hse_record:'Baik',track_record:'Banyak',
-    rfq_compliance:'Ya',commercial_deviations:1,technical_deviations:1,exceptions:'Minor',
+    bid_bond:'2% - Accepted',bid_bond_validity:'120 days',performance_bond:'10% - Agreed',
+    performance_bond_validity:'until end of warranty',advance_payment_bond:'Agreed',
+    warranty_retention_bond:'Agreed',bg_format:'Yes',
+    ld_delay:'Yes',ld_rate:'1%',ld_cap:'10%',ld_performance:'Yes',warranty_period:24,
+    defect_liability:'18 mo. post-commissioning',performance_guarantee:'Yes',
+    spare_parts_list:'Yes',spare_price_validity:'24 months',spare_availability:'20 years',
+    after_sales:'Local agent + contract',service_center:'Surabaya',service_response:'24 hours',
+    supervision_erection:'Included',mdr:'Complete',
+    tbe_status:'Pass',qaqc_cert:'ISO 9001, API 610',hse_record:'Good',track_record:'Extensive',
+    rfq_compliance:'Yes',commercial_deviations:1,technical_deviations:1,exceptions:'Minor',
     freight:4000,insurance:700,import_duty:6000,vat:0,other_charges:0,
     load_payment:0,load_delivery:0,load_bond:0,load_deviation:0,credit_aftersales:0},
   ];
-  // Jenis dokumen & keyakinan contoh. Vendor B disimulasikan sebagai PDF hasil
-  // scan berkualitas sedang dengan beberapa parameter yang sulit dibaca AI,
-  // agar fitur indikator keyakinan terlihat saat mencoba data contoh.
+  // Sample document type & confidence. Vendor B is simulated as a fair-quality
+  // scanned PDF with a few parameters AI found hard to read, so the confidence
+  // indicator feature is visible when trying the sample data.
   const demoDoc=[
     {type:'native', quality:'good', low:[]},
     {type:'scanned',quality:'fair', low:['price_base','price_inspection','ld_rate',
@@ -771,19 +771,19 @@ function loadDemo(){
     {type:'native', quality:'good', low:[]}
   ];
   state.vendors=D.map((d,i)=>{const v=newVendor();
-    v.fileName='contoh_vendor_'+(i+1)+'.pdf'; v.status='done'; v.data=d;
+    v.fileName='sample_vendor_'+(i+1)+'.pdf'; v.status='done'; v.data=d;
     const dd=demoDoc[i]||demoDoc[0];
     v.docType=dd.type; v.docQuality=dd.quality;
     v.confidence={};
     P.forEach(p=>{ if(p.type==='vendor')
       v.confidence[p.k]=(dd.low.indexOf(p.k)>=0)?'low':'high'; });
     return v;});
-  if(!$('p_name').value) $('p_name').value='Contoh — Pengadaan Pompa API 610';
+  if(!$('p_name').value) $('p_name').value='Sample — API 610 Pump Procurement';
   if(!$('p_rfq').value)  $('p_rfq').value='RFQ-2026-014';
   renderSlots(); renderTable(); updateExtractBtn();
 }
 
-/* ============ EKSPOR EXCEL — 3 SHEET SELARAS TEMPLATE ============ */
+/* ============ EXCEL EXPORT — 4 SHEETS, TEMPLATE-ALIGNED ============ */
 function exportXlsx(){
   const done=state.vendors.filter(v=>v.status==='done');
   if(!done.length) return;
@@ -791,19 +791,19 @@ function exportXlsx(){
   const colL=i=>XLSX.utils.encode_col(3+i);
   const firstC=colL(0), lastC=colL(nV-1);
 
-  /* ---- Sheet CBE ---- */
+  /* ---- CBE Sheet ---- */
   const aoa=[];
   aoa.push(['COMMERCIAL BID EVALUATION (CBE) / COMMERCIAL BID TABULATION (CBT)']);
-  aoa.push(['Evaluasi Penawaran Komersial — Pengadaan EPC (Oil & Gas / Petrokimia / Mining / Power)']);
+  aoa.push(['Commercial Bid Evaluation — EPC Procurement (Oil & Gas / Petrochemical / Mining / Power)']);
   aoa.push([]);
-  aoa.push(['Nama Proyek / Project', $('p_name').value]);
-  aoa.push(['No. RFQ-MR / RFQ-MR No.', $('p_rfq').value]);
-  aoa.push(['Tanggal / Date', $('p_date').value]);
-  aoa.push(['Mata Uang Evaluasi / Currency', $('p_curr').value]);
+  aoa.push(['Project', $('p_name').value]);
+  aoa.push(['RFQ / MR No.', $('p_rfq').value]);
+  aoa.push(['Date', $('p_date').value]);
+  aoa.push(['Evaluation Currency', $('p_curr').value]);
   aoa.push([]);
   const hdrRow=aoa.length+1;
-  aoa.push(['No.','Parameter Komersial / Commercial Parameter','Satuan / Keterangan',
-            ...done.map((v,i)=>v.data.bidder_name||('Penawar '+(i+1)))]);
+  aoa.push(['No.','Commercial Parameter','Unit / Remarks',
+            ...done.map((v,i)=>v.data.bidder_name||('Bidder '+(i+1)))]);
 
   const rowMap={}; const secRows=[];
   let cur=null;
@@ -823,12 +823,12 @@ function exportXlsx(){
     rowMap[p.k]=aoa.length;
   });
   const noteRow=aoa.length+2;
-  aoa[noteRow-1]=['Catatan: sel data = input (AI/Buyer); baris (=) & Bagian I = formula. '
-    +'Loading dalam % beban evaluasi. Disusun via CBE Builder — verifikasi terhadap quotation asli.'];
+  aoa[noteRow-1]=['Note: data cells = input (AI/Buyer); (=) rows & Section I = formula. '
+    +'Loading is in % of evaluation load. Generated via CBE Builder — verify against the original quotation.'];
 
   const ws=XLSX.utils.aoa_to_sheet(aoa);
   const comp=done.map(v=>computeVendor(v));
-  const lulus=done.map(v=>v.data.tbe_status==='Lulus');
+  const lulus=done.map(v=>v.data.tbe_status==='Pass');
   const evs=comp.map((c,i)=>lulus[i]?c.evaluated:0);
   const validEv=evs.filter(x=>x>0);
   const minEv=validEv.length?Math.min(...validEv):0;
@@ -849,20 +849,20 @@ function exportXlsx(){
       +L+rowMap.load_delivery+'+'+L+rowMap.load_bond+'+'+L+rowMap.load_deviation
       +'-'+L+rowMap.credit_aftersales+')','n',comp[i].evaluated);
     const rp=rowMap.ranking_price;
-    setF('ranking_price','IF('+L+rowMap.tbe_status+'="Lulus",'+L+rowMap.total_evaluated
+    setF('ranking_price','IF('+L+rowMap.tbe_status+'="Pass",'+L+rowMap.total_evaluated
       +',1000000000000)','n',lulus[i]?comp[i].evaluated:1e12);
     const rng='$'+firstC+'$'+rp+':$'+lastC+'$'+rp;
     const rkVal=evs[i]>0?(sortedEv.indexOf(evs[i])+1):'';
     setF('ranking','RANK('+L+rp+','+rng+',1)','n', evs[i]>0?(sortedEv.indexOf(evs[i])+1):nV);
     const aR=XLSX.utils.encode_cell({r:rowMap.ranking-1,c:3+i}); delete ws[aR].z;
-    setF('diff_lowest','IF('+L+rowMap.tbe_status+'<>"Lulus","-",('+L+rowMap.total_evaluated
+    setF('diff_lowest','IF('+L+rowMap.tbe_status+'<>"Pass","-",('+L+rowMap.total_evaluated
       +'-MIN('+rng+'))/MIN('+rng+'))','s',
       (lulus[i]&&minEv>0)?((evs[i]-minEv)/minEv):'-');
     const dR=XLSX.utils.encode_cell({r:rowMap.diff_lowest-1,c:3+i});
     if(lulus[i]&&minEv>0){ ws[dR].t='n'; ws[dR].z='0.0%'; }
-    setF('recommendation','IF('+L+rowMap.tbe_status+'<>"Lulus","GUGUR - Tidak Lulus TBE",'
-      +'IF('+L+rowMap.ranking+'=1,"DIREKOMENDASIKAN","Peringkat ke-"&'+L+rowMap.ranking+'))','s',
-      !lulus[i]?'GUGUR - Tidak Lulus TBE':(rkVal===1?'DIREKOMENDASIKAN':'Peringkat ke-'+rkVal));
+    setF('recommendation','IF('+L+rowMap.tbe_status+'<>"Pass","DISQUALIFIED - TBE Not Passed",'
+      +'IF('+L+rowMap.ranking+'=1,"RECOMMENDED","Rank no. "&'+L+rowMap.ranking+'))','s',
+      !lulus[i]?'DISQUALIFIED - TBE Not Passed':(rkVal===1?'RECOMMENDED':'Rank no. '+rkVal));
     // number format for currency & % data cells
     PRICE_COMPS.concat(['price_discount']).concat(COST_KEYS).forEach(k=>{
       const a=XLSX.utils.encode_cell({r:rowMap[k]-1,c:3+i});
@@ -881,42 +881,42 @@ function exportXlsx(){
     ...secRows.map(r=>({s:{r:r-1,c:0},e:{r:r-1,c:3+nV-1}}))
   ];
 
-  /* ---- Sheet Petunjuk ---- */
+  /* ---- Instructions Sheet ---- */
   const pet=[
-   ['COMMERCIAL BID EVALUATION (CBE) — PENGADAAN EPC'],
+   ['COMMERCIAL BID EVALUATION (CBE) — EPC PROCUREMENT'],
    [''],
-   ['Struktur: 9 bagian (A-I), 74 baris parameter — selaras template CBE EPC.'],
-   ['Sheet CBE  : tabel evaluasi utama.'],
-   ['Sheet Rincian Harga : template price breakdown per item (opsional).'],
-   ['Sheet Tinjauan Ekstraksi : keyakinan AI per parameter (Akurat / Periksa).'],
+   ['Structure: 9 sections (A-I), 74 parameter rows — aligned with the EPC CBE template.'],
+   ['CBE sheet            : main evaluation table.'],
+   ['Price Breakdown sheet: optional per-item price breakdown template.'],
+   ['Extraction Review    : AI confidence per parameter (Accurate / Check).'],
    [''],
-   ['KONVENSI ISIAN'],
-   ['  Data fakta-vendor  : diekstrak AI dari quotation, wajib diverifikasi Buyer.'],
-   ['  Penilaian Buyer    : Status TBE, AVL/AML, HSE, deviasi, freight, loading - diisi Buyer.'],
-   ['  Baris (=) & Bagian I: formula otomatis (total, landed cost, evaluated price, ranking).'],
+   ['INPUT CONVENTIONS'],
+   ['  Vendor-fact data : extracted by AI from the quotation, must be verified by the Buyer.'],
+   ['  Buyer judgement  : TBE status, AVL/AML, HSE, deviations, freight, loading - filled by the Buyer.'],
+   ['  (=) rows & Section I: auto formulas (total, landed cost, evaluated price, ranking).'],
    [''],
-   ['PRINSIP'],
-   ['  Pemenang = Total Evaluated Price terendah DI ANTARA penawar yang Lulus TBE.'],
-   ['  Penawar berstatus Gugur TBE otomatis dikeluarkan dari pemeringkatan.'],
-   ['  Loading % = beban evaluasi atas term yang kurang menguntungkan (bukan biaya nyata).'],
+   ['PRINCIPLE'],
+   ['  Winner = lowest Total Evaluated Price AMONG bidders that pass TBE.'],
+   ['  Bidders with a TBE Fail status are automatically excluded from ranking.'],
+   ['  Loading % = evaluation load for less favourable terms (not an actual cost).'],
    [''],
-   ['Dihasilkan oleh CBE Builder (prototype). Angka adalah data yang diinput/diekstrak;'],
-   ['selalu verifikasi terhadap dokumen quotation asli sebelum dipakai sebagai dasar keputusan.'],
+   ['Generated by CBE Builder (prototype). Figures are input/extracted data;'],
+   ['always verify against the original quotation document before using as a basis for decisions.'],
   ];
   const wsP=XLSX.utils.aoa_to_sheet(pet);
   wsP['!cols']=[{wch:92}];
 
-  /* ---- Sheet Rincian Harga (template line-item) ---- */
+  /* ---- Price Breakdown Sheet (line-item template) ---- */
   const rh=[];
-  rh.push(['RINCIAN HARGA PENAWARAN PER ITEM / BID PRICE BREAKDOWN']);
-  rh.push(['Mata uang: '+$('p_curr').value+'. Template opsional untuk rincian per item.']);
+  rh.push(['BID PRICE BREAKDOWN (PER ITEM)']);
+  rh.push(['Currency: '+$('p_curr').value+'. Optional template for per-item breakdown.']);
   rh.push([]);
-  const rhHdr=['No.','Deskripsi Item','Satuan','Qty'];
-  done.forEach((v,i)=>{ rhHdr.push((v.data.bidder_name||('Penawar '+(i+1)))+' - Hrg Satuan');
-                        rhHdr.push((v.data.bidder_name||('Penawar '+(i+1)))+' - Total'); });
+  const rhHdr=['No.','Item Description','Unit','Qty'];
+  done.forEach((v,i)=>{ rhHdr.push((v.data.bidder_name||('Bidder '+(i+1)))+' - Unit Price');
+                        rhHdr.push((v.data.bidder_name||('Bidder '+(i+1)))+' - Total'); });
   rh.push(rhHdr);
-  const rhSecs=['BAGIAN 1 - LINGKUP DASAR','BAGIAN 2 - SUKU CADANG COMMISSIONING',
-                'BAGIAN 3 - SUKU CADANG 2 TAHUN','BAGIAN 4 - SPECIAL TOOLS & TACKLES'];
+  const rhSecs=['SECTION 1 - BASE SCOPE','SECTION 2 - COMMISSIONING SPARES',
+                'SECTION 3 - 2-YEAR SPARES','SECTION 4 - SPECIAL TOOLS & TACKLES'];
   const rhMerges=[{s:{r:0,c:0},e:{r:0,c:3+nV*2}},{s:{r:1,c:0},e:{r:1,c:3+nV*2}}];
   const subRows=[];
   rhSecs.forEach(sec=>{
@@ -952,27 +952,27 @@ function exportXlsx(){
     ...done.flatMap(()=>[{wch:18},{wch:18}])];
   wsR['!merges']=rhMerges;
 
-  /* ---- Sheet Tinjauan Ekstraksi (keyakinan AI) ---- */
+  /* ---- Extraction Review Sheet (AI confidence) ---- */
   const rev=[];
-  rev.push(['TINJAUAN KEYAKINAN EKSTRAKSI AI / AI EXTRACTION CONFIDENCE REVIEW']);
-  rev.push(['Status per parameter saat AI membaca PDF. "PERIKSA" = AI kurang yakin '+
-            '(mis. PDF hasil scan kurang jelas) - wajib diverifikasi terhadap dokumen asli.']);
+  rev.push(['AI EXTRACTION CONFIDENCE REVIEW']);
+  rev.push(['Per-parameter status when AI read the PDF. "CHECK" = AI was unsure '+
+            '(e.g. an unclear scanned PDF) - must be verified against the original document.']);
   rev.push([]);
-  rev.push(['PENILAIAN DOKUMEN PER PENAWAR']);
+  rev.push(['DOCUMENT ASSESSMENT PER BIDDER']);
   done.forEach(v=>{
     const s=vendorConfSummary(v);
     rev.push([
-      (v.data.bidder_name||'Penawar'),
-      'Jenis: '+(docTypeLabel(v)||'-'),
+      (v.data.bidder_name||'Bidder'),
+      'Type: '+(docTypeLabel(v)||'-'),
       (docQualityLabel(v)||'-'),
-      'Akurat: '+s.ok+'  |  Periksa: '+s.chk+'  |  Isi manual: '+s.emp
+      'Accurate: '+s.ok+'  |  Check: '+s.chk+'  |  Fill manually: '+s.emp
     ]);
   });
   rev.push([]);
-  const revHdr=['Bagian','Parameter'];
-  done.forEach((v,i)=> revHdr.push(v.data.bidder_name||('Penawar '+(i+1))));
+  const revHdr=['Section','Parameter'];
+  done.forEach((v,i)=> revHdr.push(v.data.bidder_name||('Bidder '+(i+1))));
   rev.push(revHdr);
-  const revStatus={ok:'Akurat',check:'PERIKSA',empty:'Tidak ditemukan'};
+  const revStatus={ok:'Accurate',check:'CHECK',empty:'Not found'};
   P.forEach(p=>{
     if(p.type!=='vendor') return;
     const row=[p.s,p.label];
@@ -988,10 +988,10 @@ function exportXlsx(){
 
   /* ---- assemble workbook ---- */
   const wb=XLSX.utils.book_new();
-  XLSX.utils.book_append_sheet(wb,wsP,'Petunjuk');
+  XLSX.utils.book_append_sheet(wb,wsP,'Instructions');
   XLSX.utils.book_append_sheet(wb,ws,'CBE');
-  XLSX.utils.book_append_sheet(wb,wsR,'Rincian Harga');
-  XLSX.utils.book_append_sheet(wb,wsRev,'Tinjauan Ekstraksi');
+  XLSX.utils.book_append_sheet(wb,wsR,'Price Breakdown');
+  XLSX.utils.book_append_sheet(wb,wsRev,'Extraction Review');
   XLSX.writeFile(wb,'CBE_EPC_Output.xlsx');
 }
 
