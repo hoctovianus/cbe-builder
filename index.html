@@ -369,6 +369,21 @@ function num(x){
   return isFinite(n)?n:0;
 }
 function fmt(n){ return n.toLocaleString('en-US',{minimumFractionDigits:2,maximumFractionDigits:2}); }
+// Format the value of a currency input cell in US style with comma separators.
+// Shown when the cell is not being edited; reverts to a raw number on focus.
+function fmtCell(raw){
+  if(raw==null) return '';
+  const s=String(raw).trim();
+  if(s==='') return '';
+  const n=parseFloat(s.replace(/[^0-9.\-]/g,''));
+  if(!isFinite(n)) return s;
+  return n.toLocaleString('en-US',{minimumFractionDigits:2,maximumFractionDigits:2});
+}
+// Currency parameters: price components in Section B + costs in Section H.
+function isCurrencyParam(p){
+  return (p.s==='B'&&p.type==='vendor'&&p.num) ||
+         (p.k==='price_discount') || (p.type==='cost');
+}
 function esc(s){ return String(s).replace(/[&<>"]/g,c=>(
   {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c])); }
 
@@ -597,6 +612,7 @@ function renderTable(){
         const isVend=(p.type==='vendor');
         const cs=isVend?confState(v,p):'na';
         const numcls=(p.num||p.type==='cost'||p.type==='loading')?'num':'';
+        const isCur=isCurrencyParam(p);
         let tdCls='cell';
         if(isBuyer) tdCls+=' t-buyer';
         if(isVend)  tdCls+=' vend c-'+cs;
@@ -605,9 +621,10 @@ function renderTable(){
         const ci=isVend
           ? `<span class="ci ci-${cs}" title="${CI_TTL[cs]}">${CI_SYM[cs]}</span>`
           : '';
+        const shownVal=isCur?fmtCell(val):String(val);
         h+=`<td class="${tdCls}">`+
-           `<input class="${numcls}" data-vid="${v.id}" data-key="${p.k}" `+
-           `value="${esc(String(val))}" placeholder="${ph}">${ci}</td>`;
+           `<input class="${numcls}"${isCur?' data-cur="1"':''} data-vid="${v.id}" data-key="${p.k}" `+
+           `value="${esc(shownVal)}" placeholder="${ph}">${ci}</td>`;
       }
     });
     h+='</tr>';
@@ -622,11 +639,23 @@ function renderTable(){
 
   area.querySelectorAll('input[data-key],select[data-key]').forEach(el=>{
     const ev=el.tagName==='SELECT'?'change':'input';
+    // Currency cells: show a raw number while editing, formatted when not.
+    if(el.dataset.cur){
+      el.addEventListener('focus',()=>{
+        const v=state.vendors.find(x=>x.id==el.dataset.vid);
+        const raw=v?v.data[el.dataset.key]:'';
+        el.value=(raw==null)?'':String(raw).replace(/,/g,'');
+      });
+      el.addEventListener('blur',()=>{
+        el.value=fmtCell(el.value);
+      });
+    }
     el.addEventListener(ev,()=>{
       const v=state.vendors.find(x=>x.id==el.dataset.vid);
       if(!v) return;
       const key=el.dataset.key;
-      v.data[key]=el.value;
+      // Store the clean numeric string; display formatting is handled on blur.
+      v.data[key]=el.dataset.cur?el.value.replace(/,/g,''):el.value;
       const p=P.find(x=>x.k===key);
       if(p&&p.type==='vendor'){
         // Buyer fills/corrects an AI cell -> mark as verified (accurate).
